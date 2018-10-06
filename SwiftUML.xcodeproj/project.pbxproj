@@ -117,17 +117,9 @@
 		2F046C5321669FC00049F559 /* SwiftUML */ = {
 			isa = PBXGroup;
 			children = (
-				2F046C5B2166A00E0049F559 /* Parser */,
 				2F046C5421669FC00049F559 /* main.swift */,
 			);
 			path = SwiftUML;
-			sourceTree = "<group>";
-		};
-		2F046C5B2166A00E0049F559 /* Parser */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Parser;
 			sourceTree = "<group>";
 		};
 		2F046C6C2166E82D0049F559 /* SwiftUMLParser */ = {

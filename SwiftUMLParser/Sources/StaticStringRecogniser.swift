@@ -10,17 +10,19 @@ final class StaticStringRecogniser: TokenRecogniser {
     
     let token: Token
     let stringToMatch: String.UnicodeScalarView
+    let patternConclusionSet: CharacterSet
     var matchedIndex: String.Index?
     
-    init(stringToMatch: String, recognising token: Token) {
+    init(stringToMatch: String, patternConclusionSet: CharacterSet = .whitespaces, recognising token: Token) {
         self.stringToMatch = stringToMatch.unicodeScalars
+        self.patternConclusionSet = patternConclusionSet
         self.token = token
     }
     
-    func attemptRecognition(with scalarView: Substring.UnicodeScalarView) -> Token? {
-        
+    func attemptRecognition(of scalar: UnicodeScalar, withLookAheadScalar lookAheadScalar: UnicodeScalar?) -> Token? {
+    
         let indexToCheck: String.Index = {
-           
+            
             if let lastMatchedIndex = self.matchedIndex {
                 return self.stringToMatch.index(after: lastMatchedIndex)
             } else {
@@ -29,24 +31,39 @@ final class StaticStringRecogniser: TokenRecogniser {
         }()
         
         guard indexToCheck < self.stringToMatch.endIndex else {
-            self.reset()
+            self.clear()
             return nil
         }
         
-        if scalarView[scalarView.startIndex] == stringToMatch[indexToCheck] {
+        if scalar == stringToMatch[indexToCheck] {
+            
             self.matchedIndex = indexToCheck
-            if indexToCheck == self.stringToMatch.index(before: self.stringToMatch.endIndex) {
-                self.reset()
+            
+            let matchedCompletePattern = indexToCheck == self.stringToMatch.index(before: self.stringToMatch.endIndex)
+            let endOfString = lookAheadScalar == nil
+            let patternConclusionOnLookAhead: Bool = {
+                
+                if let lookAhead = lookAheadScalar, patternConclusionSet.contains(lookAhead) {
+                    return true
+                } else {
+                    return false
+                }
+            }()
+            
+            if matchedCompletePattern && (endOfString || patternConclusionOnLookAhead) {
+                
+                self.clear()
                 return self.token
+                
             } else {
                 return nil
             }
         }
-        self.reset()
+        self.clear()
         return nil
     }
     
-    func reset() {
+    func clear() {
         self.matchedIndex = nil
     }
 }

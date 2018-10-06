@@ -8,16 +8,29 @@
 
 public final class Tokeniser {
     
-    public init() { }
+    let recognisers: [TokenRecogniser]
+    
+    public convenience init() {
+        
+        let whitespace = CharacterSetRecogniser(includeSet: .whitespaces, patternConclusionSet: CharacterSet.whitespaces.inverted, whenMatched: { _ in .whitespace })
+        let classRecogniser = StaticStringRecogniser(stringToMatch: "class", recognising: .classIdentifier)
+        
+        let recognisers: [TokenRecogniser] = [whitespace, classRecogniser]
+        
+        self.init(recognisers: recognisers)
+    }
+    
+    init(recognisers: [TokenRecogniser]) {
+        
+        self.recognisers = recognisers
+    }
     
     public func tokenise(_ string: String) -> [Token] {
         
         var tokens = [Token]()
         var scalars = string.unicodeScalars
-        let recognisers: [TokenRecogniser] = [CharacterSetRecogniser(characterSet: .whitespaces, recognising: .whitespace),
-                                              StaticStringRecogniser(stringToMatch: "class", recognising: .classIdentifier)]
         
-        while let token = scalars.consumeCharacters(using: recognisers) {
+        while let token = scalars.consumeCharacters(using: self.recognisers) {
             tokens.append(token)
         }
         
@@ -32,14 +45,27 @@ extension String.UnicodeScalarView {
         
         for index in self.indices {
             
-            let subset = self.suffix(from: index)
+            let firstScalar = self[index]
+            let lookAheadScalar = index == self.index(before: self.endIndex) ? nil : self[self.index(after: index)]
+            
+            var nextToken: Token?
             
             for recogniser in recognisers {
                 
-                if let token = recogniser.attemptRecognition(with: subset) {
-                    self = String.UnicodeScalarView(self.suffix(from: self.index(after: index)))
-                    return token
+                guard nextToken == nil else {
+                    recogniser.clear()
+                    continue
                 }
+                
+                if let token = recogniser.attemptRecognition(of: firstScalar, withLookAheadScalar: lookAheadScalar) {
+                    
+                    self = String.UnicodeScalarView(self.suffix(from: self.index(after: index)))
+                    nextToken = token
+                }
+            }
+            
+            if let token = nextToken {
+                return token
             }
         }
         return nil
