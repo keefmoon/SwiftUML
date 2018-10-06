@@ -14,10 +14,8 @@
 		2F046C8A2166E88F0049F559 /* CharacterSetRecogniser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F046C852166E88F0049F559 /* CharacterSetRecogniser.swift */; };
 		2F046C8B2166E88F0049F559 /* TokenRecogniser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F046C862166E88F0049F559 /* TokenRecogniser.swift */; };
 		2F046C8C2166E88F0049F559 /* Tokeniser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F046C872166E88F0049F559 /* Tokeniser.swift */; };
-		2F046C8D2166E88F0049F559 /* StaticStringRecogniser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F046C882166E88F0049F559 /* StaticStringRecogniser.swift */; };
 		2F046C8E2166E88F0049F559 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F046C892166E88F0049F559 /* Token.swift */; };
 		2F046C902166E8A30049F559 /* SwiftUMLParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F046C6B2166E82D0049F559 /* SwiftUMLParser.framework */; };
-		2F046C942166ED550049F559 /* AllRecogniser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F046C932166ED550049F559 /* AllRecogniser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,9 +59,7 @@
 		2F046C852166E88F0049F559 /* CharacterSetRecogniser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterSetRecogniser.swift; sourceTree = "<group>"; };
 		2F046C862166E88F0049F559 /* TokenRecogniser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenRecogniser.swift; sourceTree = "<group>"; };
 		2F046C872166E88F0049F559 /* Tokeniser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokeniser.swift; sourceTree = "<group>"; };
-		2F046C882166E88F0049F559 /* StaticStringRecogniser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticStringRecogniser.swift; sourceTree = "<group>"; };
 		2F046C892166E88F0049F559 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
-		2F046C932166ED550049F559 /* AllRecogniser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRecogniser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,17 +113,9 @@
 		2F046C5321669FC00049F559 /* SwiftUML */ = {
 			isa = PBXGroup;
 			children = (
-				2F046C5B2166A00E0049F559 /* Parser */,
 				2F046C5421669FC00049F559 /* main.swift */,
 			);
 			path = SwiftUML;
-			sourceTree = "<group>";
-		};
-		2F046C5B2166A00E0049F559 /* Parser */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Parser;
 			sourceTree = "<group>";
 		};
 		2F046C6C2166E82D0049F559 /* SwiftUMLParser */ = {
@@ -155,9 +143,7 @@
 				2F046C852166E88F0049F559 /* CharacterSetRecogniser.swift */,
 				2F046C862166E88F0049F559 /* TokenRecogniser.swift */,
 				2F046C872166E88F0049F559 /* Tokeniser.swift */,
-				2F046C882166E88F0049F559 /* StaticStringRecogniser.swift */,
 				2F046C892166E88F0049F559 /* Token.swift */,
-				2F046C932166ED550049F559 /* AllRecogniser.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -307,12 +293,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F046C942166ED550049F559 /* AllRecogniser.swift in Sources */,
 				2F046C8C2166E88F0049F559 /* Tokeniser.swift in Sources */,
 				2F046C8E2166E88F0049F559 /* Token.swift in Sources */,
 				2F046C8B2166E88F0049F559 /* TokenRecogniser.swift in Sources */,
 				2F046C8A2166E88F0049F559 /* CharacterSetRecogniser.swift in Sources */,
-				2F046C8D2166E88F0049F559 /* StaticStringRecogniser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,11 +7,30 @@
 //
 
 public enum Token {
-    case whitespace
-    case openBracket
-    case closeBracket
-    case classIdentifier
-    case other(String)
+    case atSymbol // @
+    case hyphen // -
+    case whitespace //
+    case newLine // \n
+    case colon // :
+    case hashSymbol // #
+    case openCurlyBracket // {
+    case closeCurlyBracket // }
+    case openPointyBracket // <
+    case closePointyBracket // >
+    case openSquareBracket // [
+    case closeSquareBracket // ]
+    case fullStop // .
+    case simpleQuote // '
+    case doubleQuote // "
+    case slash // /
+    case backSlash // \
+    case pipeSeparator // |
+    
+    case otherSymbol(UnicodeScalar)
+    case uppercaseLetter(UnicodeScalar)
+    case lowercaseLetter(UnicodeScalar)
+    case digit(UnicodeScalar)
+    case other(UnicodeScalar)
 }
 
 extension Token: Equatable {

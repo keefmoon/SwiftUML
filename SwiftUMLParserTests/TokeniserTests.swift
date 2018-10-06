@@ -25,7 +25,11 @@ class TokeniserTests: XCTestCase {
 
     func testClassTextIsTokenisedCorrectly() {
         
-        let expected: [Token] = [.classIdentifier]
+        let expected: [Token] = [.lowercaseLetter(UnicodeScalar("c")!),
+                                 .lowercaseLetter(UnicodeScalar("l")!),
+                                 .lowercaseLetter(UnicodeScalar("a")!),
+                                 .lowercaseLetter(UnicodeScalar("s")!),
+                                 .lowercaseLetter(UnicodeScalar("s")!)]
         let actual: [Token] = self.tokeniser.tokenise("class")
         
         XCTAssert(actual == expected)
@@ -33,7 +37,11 @@ class TokeniserTests: XCTestCase {
     
     func testWlassTextIsTokenisedCorrectly() {
         
-        let expected: [Token] = []
+        let expected: [Token] = [.lowercaseLetter(UnicodeScalar("w")!),
+                                 .lowercaseLetter(UnicodeScalar("l")!),
+                                 .lowercaseLetter(UnicodeScalar("a")!),
+                                 .lowercaseLetter(UnicodeScalar("s")!),
+                                 .lowercaseLetter(UnicodeScalar("s")!)]
         let actual: [Token] = self.tokeniser.tokenise("wlass")
         
         XCTAssert(actual == expected)
@@ -41,7 +49,11 @@ class TokeniserTests: XCTestCase {
     
     func testClaswTextIsTokenisedCorrectly() {
         
-        let expected: [Token] = []
+        let expected: [Token] = [.lowercaseLetter(UnicodeScalar("c")!),
+                                 .lowercaseLetter(UnicodeScalar("l")!),
+                                 .lowercaseLetter(UnicodeScalar("a")!),
+                                 .lowercaseLetter(UnicodeScalar("s")!),
+                                 .lowercaseLetter(UnicodeScalar("w")!)]
         let actual: [Token] = self.tokeniser.tokenise("clasw")
         
         XCTAssert(actual == expected)
@@ -49,7 +61,12 @@ class TokeniserTests: XCTestCase {
     
     func testClass_TextIsTokenisedCorrectly() {
         
-        let expected: [Token] = [.classIdentifier, .whitespace]
+        let expected: [Token] = [.lowercaseLetter(UnicodeScalar("c")!),
+                                 .lowercaseLetter(UnicodeScalar("l")!),
+                                 .lowercaseLetter(UnicodeScalar("a")!),
+                                 .lowercaseLetter(UnicodeScalar("s")!),
+                                 .lowercaseLetter(UnicodeScalar("s")!),
+                                 .whitespace]
         let actual: [Token] = self.tokeniser.tokenise("class ")
         
         XCTAssert(actual == expected)
@@ -57,9 +74,52 @@ class TokeniserTests: XCTestCase {
     
     func testClass_ClassTextIsTokenisedCorrectly() {
         
-        let expected: [Token] = [.classIdentifier, .whitespace, .classIdentifier]
+        let expected: [Token] = [.lowercaseLetter(UnicodeScalar("c")!),
+                                 .lowercaseLetter(UnicodeScalar("l")!),
+                                 .lowercaseLetter(UnicodeScalar("a")!),
+                                 .lowercaseLetter(UnicodeScalar("s")!),
+                                 .lowercaseLetter(UnicodeScalar("s")!),
+                                 .whitespace,
+                                 .lowercaseLetter(UnicodeScalar("c")!),
+                                 .lowercaseLetter(UnicodeScalar("l")!),
+                                 .lowercaseLetter(UnicodeScalar("a")!),
+                                 .lowercaseLetter(UnicodeScalar("s")!),
+                                 .lowercaseLetter(UnicodeScalar("s")!)]
         let actual: [Token] = self.tokeniser.tokenise("class class")
         
+        XCTAssert(actual == expected)
+    }
+    
+    func testClass_AllTokens() {
+        
+        let expected: [Token] = [.atSymbol,
+                                 .hyphen,
+                                 .whitespace,
+                                 .newLine,
+                                 .colon,
+                                 .hashSymbol,
+                                 .openCurlyBracket,
+                                 .closeCurlyBracket,
+                                 .openPointyBracket,
+                                 .closePointyBracket,
+                                 .openSquareBracket,
+                                 .closeSquareBracket,
+                                 .fullStop,
+                                 .simpleQuote,
+                                 .doubleQuote,
+                                 .slash,
+                                 .backSlash,
+                                 .pipeSeparator,
+                                 .uppercaseLetter(UnicodeScalar("A")!),
+                                 .lowercaseLetter(UnicodeScalar("b")!),
+                                 .digit(UnicodeScalar("2")!),
+                                 .other(UnicodeScalar("&")!)]
+        
+        let stringToTokenise = """
+@- 
+:#{}<>[].'\"/\\|Ab2&
+"""
+        let actual: [Token] = self.tokeniser.tokenise(stringToTokenise)
         XCTAssert(actual == expected)
     }
 

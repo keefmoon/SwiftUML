@@ -8,17 +8,19 @@
 
 import Foundation
 
-final class CharacterSetRecogniser: TokenRecogniser {
+struct CharacterSetRecogniser: TokenRecogniser {
     
-    let token: Token
+    typealias TokenMatchHandler = (UnicodeScalar) -> Token
+    
     let characterSet: CharacterSet
+    let matchingHandler: TokenMatchHandler
     
-    init(characterSet: CharacterSet, recognising token: Token) {
+    init(characterSet: CharacterSet, whenMatched matchingHandler: @escaping TokenMatchHandler) {
         self.characterSet = characterSet
-        self.token = token
+        self.matchingHandler = matchingHandler
     }
     
-    func attemptRecognition(with scalarView: Substring.UnicodeScalarView) -> Token? {
-        return characterSet.contains(scalarView[scalarView.startIndex]) ? self.token : nil
+    func attemptRecognition(with scalar: UnicodeScalar) -> Token? {
+        return characterSet.contains(scalar) ? self.matchingHandler(scalar) : nil
     }
 }

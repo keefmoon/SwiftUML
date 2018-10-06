@@ -8,40 +8,50 @@
 
 public final class Tokeniser {
     
-    public init() { }
+    let recognisers: [TokenRecogniser]
+    
+    public convenience init() {
+        self.init(recognisers: [CharacterSetRecogniser(characterSet: CharacterSet(charactersIn: "@"), whenMatched: { _ in .atSymbol }),
+                                CharacterSetRecogniser(characterSet: CharacterSet(charactersIn: "-"), whenMatched: { _ in .hyphen }),
+                                CharacterSetRecogniser(characterSet: .whitespaces, whenMatched: { _ in .whitespace }),
+                                CharacterSetRecogniser(characterSet: .newlines, whenMatched: { _ in .newLine }),
+                                CharacterSetRecogniser(characterSet: CharacterSet(charactersIn: ":"), whenMatched: { _ in .colon }),
+                                CharacterSetRecogniser(characterSet: CharacterSet(charactersIn: "#"), whenMatched: { _ in .hashSymbol }),
+                                CharacterSetRecogniser(characterSet: CharacterSet(charactersIn: "{"), whenMatched: { _ in .openCurlyBracket }),
+                                CharacterSetRecogniser(characterSet: CharacterSet(charactersIn: "}"), whenMatched: { _ in .closeCurlyBracket }),
+                                CharacterSetRecogniser(characterSet: CharacterSet(charactersIn: "<"), whenMatched: { _ in .openPointyBracket }),
+                                CharacterSetRecogniser(characterSet: CharacterSet(charactersIn: ">"), whenMatched: { _ in .closePointyBracket }),
+                                CharacterSetRecogniser(characterSet: CharacterSet(charactersIn: "["), whenMatched: { _ in .openSquareBracket }),
+                                CharacterSetRecogniser(characterSet: CharacterSet(charactersIn: "]"), whenMatched: { _ in .closeSquareBracket }),
+                                CharacterSetRecogniser(characterSet: CharacterSet(charactersIn: "."), whenMatched: { _ in .fullStop }),
+                                CharacterSetRecogniser(characterSet: CharacterSet(charactersIn: "'"), whenMatched: { _ in .simpleQuote }),
+                                CharacterSetRecogniser(characterSet: CharacterSet(charactersIn: "\""), whenMatched: { _ in .doubleQuote }),
+                                CharacterSetRecogniser(characterSet: CharacterSet(charactersIn: "/"), whenMatched: { _ in .slash }),
+                                CharacterSetRecogniser(characterSet: CharacterSet(charactersIn: "\\"), whenMatched: { _ in .backSlash }),
+                                CharacterSetRecogniser(characterSet: CharacterSet(charactersIn: "|"), whenMatched: { _ in .pipeSeparator }),
+                                CharacterSetRecogniser(characterSet: .symbols, whenMatched: { .otherSymbol($0) }),
+                                CharacterSetRecogniser(characterSet: .uppercaseLetters, whenMatched: { .uppercaseLetter($0) }),
+                                CharacterSetRecogniser(characterSet: .lowercaseLetters, whenMatched: { .lowercaseLetter($0) }),
+                                CharacterSetRecogniser(characterSet: .decimalDigits, whenMatched: { .digit($0) }),
+                                CharacterSetRecogniser(characterSet: CharacterSet.letters.inverted, whenMatched: { .other($0) })])
+    }
+    
+    init(recognisers: [TokenRecogniser]) {
+        self.recognisers = recognisers
+    }
     
     public func tokenise(_ string: String) -> [Token] {
         
-        var tokens = [Token]()
-        var scalars = string.unicodeScalars
-        let recognisers: [TokenRecogniser] = [CharacterSetRecogniser(characterSet: .whitespaces, recognising: .whitespace),
-                                              StaticStringRecogniser(stringToMatch: "class", recognising: .classIdentifier)]
-        
-        while let token = scalars.consumeCharacters(using: recognisers) {
-            tokens.append(token)
-        }
-        
-        return tokens
-    }
-}
-
-// Should be a fileprivate extension
-extension String.UnicodeScalarView {
-    
-    fileprivate mutating func consumeCharacters(using recognisers: [TokenRecogniser]) -> Token? {
-        
-        for index in self.indices {
-            
-            let subset = self.suffix(from: index)
+        let recognisers = self.recognisers
+        return string.unicodeScalars.compactMap { scalar in
             
             for recogniser in recognisers {
                 
-                if let token = recogniser.attemptRecognition(with: subset) {
-                    self = String.UnicodeScalarView(self.suffix(from: self.index(after: index)))
+                if let token = recogniser.attemptRecognition(with: scalar) {
                     return token
                 }
             }
+            return nil
         }
-        return nil
     }
 }

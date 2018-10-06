@@ -6,6 +6,6 @@
 //  Copyright © 2018 Keith Moon. All rights reserved.
 //
 
-protocol TokenRecogniser: class {
-    func attemptRecognition(with scalarView: Substring.UnicodeScalarView) -> Token?
+protocol TokenRecogniser {
+    func attemptRecognition(with scalar: UnicodeScalar) -> Token?
 }
