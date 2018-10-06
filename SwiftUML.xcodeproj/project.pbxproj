@@ -18,6 +18,7 @@
 		2F046C8E2166E88F0049F559 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F046C892166E88F0049F559 /* Token.swift */; };
 		2F046C902166E8A30049F559 /* SwiftUMLParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F046C6B2166E82D0049F559 /* SwiftUMLParser.framework */; };
 		2F046C942166ED550049F559 /* AllRecogniser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F046C932166ED550049F559 /* AllRecogniser.swift */; };
+		2F046C97216964200049F559 /* CharacterSet+All.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F046C96216964200049F559 /* CharacterSet+All.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		2F046C882166E88F0049F559 /* StaticStringRecogniser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticStringRecogniser.swift; sourceTree = "<group>"; };
 		2F046C892166E88F0049F559 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		2F046C932166ED550049F559 /* AllRecogniser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRecogniser.swift; sourceTree = "<group>"; };
+		2F046C96216964200049F559 /* CharacterSet+All.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+All.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 				2F046C882166E88F0049F559 /* StaticStringRecogniser.swift */,
 				2F046C892166E88F0049F559 /* Token.swift */,
 				2F046C932166ED550049F559 /* AllRecogniser.swift */,
+				2F046C96216964200049F559 /* CharacterSet+All.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 				2F046C8E2166E88F0049F559 /* Token.swift in Sources */,
 				2F046C8B2166E88F0049F559 /* TokenRecogniser.swift in Sources */,
 				2F046C8A2166E88F0049F559 /* CharacterSetRecogniser.swift in Sources */,
+				2F046C97216964200049F559 /* CharacterSet+All.swift in Sources */,
 				2F046C8D2166E88F0049F559 /* StaticStringRecogniser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

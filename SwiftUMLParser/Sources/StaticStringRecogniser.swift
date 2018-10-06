@@ -13,7 +13,7 @@ final class StaticStringRecogniser: TokenRecogniser {
     let patternConclusionSet: CharacterSet
     var matchedIndex: String.Index?
     
-    init(stringToMatch: String, patternConclusionSet: CharacterSet = .whitespaces, recognising token: Token) {
+    init(stringToMatch: String, patternConclusionSet: CharacterSet = .whitespacesAndNewlines, recognising token: Token) {
         self.stringToMatch = stringToMatch.unicodeScalars
         self.patternConclusionSet = patternConclusionSet
         self.token = token

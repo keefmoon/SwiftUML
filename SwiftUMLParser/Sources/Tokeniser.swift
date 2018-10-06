@@ -13,9 +13,26 @@ public final class Tokeniser {
     public convenience init() {
         
         let whitespace = CharacterSetRecogniser(includeSet: .whitespaces, patternConclusionSet: CharacterSet.whitespaces.inverted, whenMatched: { _ in .whitespace })
+        let newline = CharacterSetRecogniser(includeSet: .newlines, patternConclusionSet: .all, whenMatched: { _ in .newline })
+        let openCurlyBracket = StaticStringRecogniser(stringToMatch: "{", recognising: .openCurlyBracket)
+        let closeCurlyBracket = StaticStringRecogniser(stringToMatch: "}", recognising: .closeCurlyBracket)
+        let startUML = StaticStringRecogniser(stringToMatch: "@startuml", recognising: .startUML)
+        let endUML = StaticStringRecogniser(stringToMatch: "@enduml", recognising: .endUML)
+        let startMultiLineComment = StaticStringRecogniser(stringToMatch: "/'", patternConclusionSet: .all, recognising: .startMultiLineComment)
+        let endMultiLineComment = StaticStringRecogniser(stringToMatch: "'/", patternConclusionSet: .all, recognising: .endMultiLineComment)
+        
+        
         let classRecogniser = StaticStringRecogniser(stringToMatch: "class", recognising: .classIdentifier)
         
-        let recognisers: [TokenRecogniser] = [whitespace, classRecogniser]
+        let recognisers: [TokenRecogniser] = [whitespace,
+                                              newline,
+                                              openCurlyBracket,
+                                              closeCurlyBracket,
+                                              startUML,
+                                              endUML,
+                                              startMultiLineComment,
+                                              endMultiLineComment,
+                                              classRecogniser]
         
         self.init(recognisers: recognisers)
     }

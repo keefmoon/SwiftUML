@@ -62,5 +62,33 @@ class TokeniserTests: XCTestCase {
         
         XCTAssert(actual == expected)
     }
+    
+    func testClass_ClassBracketsWhiteAndNewLineIsTokenisedCorrectly() {
+        
+        let expected: [Token] = [.classIdentifier, .whitespace, .openCurlyBracket, .newline, .whitespace, .classIdentifier, .newline, .closeCurlyBracket]
+        
+        let text = """
+class {
+    class
+}
+"""
+        let actual: [Token] = self.tokeniser.tokenise(text)
+        
+        XCTAssert(actual == expected)
+    }
+    
+    func testNewLineThenClassIsTokenisedCorrectly() {
+        
+        let expected: [Token] = [.classIdentifier, .whitespace, .openCurlyBracket, .newline, .classIdentifier, .newline, .closeCurlyBracket]
+        
+        let text = """
+class {
+class
+}
+"""
+        let actual: [Token] = self.tokeniser.tokenise(text)
+        
+        XCTAssert(actual == expected)
+    }
 
 }

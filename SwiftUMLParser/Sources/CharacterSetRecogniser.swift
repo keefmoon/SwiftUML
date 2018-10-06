@@ -17,7 +17,7 @@ final class CharacterSetRecogniser: TokenRecogniser {
     let matchingHandler: TokenMatchHandler
     var recognisedScalars = String.UnicodeScalarView([])
     
-    init(includeSet: CharacterSet, patternConclusionSet: CharacterSet = .whitespaces, whenMatched matchingHandler: @escaping TokenMatchHandler) {
+    init(includeSet: CharacterSet, patternConclusionSet: CharacterSet = .whitespacesAndNewlines, whenMatched matchingHandler: @escaping TokenMatchHandler) {
         self.includeSet = includeSet
         self.patternConclusionSet = patternConclusionSet
         self.matchingHandler = matchingHandler

@@ -8,10 +8,18 @@
 
 public enum Token {
     case whitespace
-    case openBracket
-    case closeBracket
+    case newline
+    case openCurlyBracket // {
+    case closeCurlyBracket // }
+    case simpleQuote // '
+    case doubleQuote // "
+    case startMultiLineComment // /'
+    case endMultiLineComment // '/
+    case startUML
+    case endUML
+    
     case classIdentifier
-    case other(String)
+    case label(String)
 }
 
 extension Token: Equatable {
