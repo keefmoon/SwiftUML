@@ -25,7 +25,7 @@ class TokeniserTests: XCTestCase {
 
     func testClassTextIsTokenisedCorrectly() {
         
-        let expected: [Token] = [.classIdentifier]
+        let expected: [Token] = [.class]
         let actual: [Token] = self.tokeniser.tokenise("class")
         
         XCTAssert(actual == expected)
@@ -49,7 +49,7 @@ class TokeniserTests: XCTestCase {
     
     func testClass_TextIsTokenisedCorrectly() {
         
-        let expected: [Token] = [.classIdentifier, .whitespace]
+        let expected: [Token] = [.class, .whitespace]
         let actual: [Token] = self.tokeniser.tokenise("class ")
         
         XCTAssert(actual == expected)
@@ -57,7 +57,7 @@ class TokeniserTests: XCTestCase {
     
     func testClass_ClassTextIsTokenisedCorrectly() {
         
-        let expected: [Token] = [.classIdentifier, .whitespace, .classIdentifier]
+        let expected: [Token] = [.class, .whitespace, .class]
         let actual: [Token] = self.tokeniser.tokenise("class class")
         
         XCTAssert(actual == expected)
@@ -65,7 +65,7 @@ class TokeniserTests: XCTestCase {
     
     func testClass_ClassBracketsWhiteAndNewLineIsTokenisedCorrectly() {
         
-        let expected: [Token] = [.classIdentifier, .whitespace, .openCurlyBracket, .newline, .whitespace, .classIdentifier, .newline, .closeCurlyBracket]
+        let expected: [Token] = [.class, .whitespace, .openCurlyBracket, .newline, .whitespace, .class, .newline, .closeCurlyBracket]
         
         let text = """
 class {
@@ -79,7 +79,7 @@ class {
     
     func testNewLineThenClassIsTokenisedCorrectly() {
         
-        let expected: [Token] = [.classIdentifier, .whitespace, .openCurlyBracket, .newline, .classIdentifier, .newline, .closeCurlyBracket]
+        let expected: [Token] = [.class, .whitespace, .openCurlyBracket, .newline, .class, .newline, .closeCurlyBracket]
         
         let text = """
 class {
@@ -93,7 +93,7 @@ class
     
     func testClassExampleWithIdentifierIsTokenisedCorrectly() {
         
-        let expected: [Token] = [.classIdentifier,
+        let expected: [Token] = [.class,
                                  .whitespace,
                                  .identifier("MyClass"),
                                  .whitespace,

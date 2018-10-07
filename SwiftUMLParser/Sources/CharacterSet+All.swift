@@ -15,6 +15,6 @@ extension CharacterSet {
     }
     
     static var plantUMLIdentifierAllowed: CharacterSet {
-        return (CharacterSet(charactersIn: "{}<>").union(.whitespacesAndNewlines)).inverted
+        return (CharacterSet(charactersIn: ":{}<>").union(.whitespacesAndNewlines)).inverted
     }
 }

@@ -11,37 +11,7 @@ public final class Tokeniser {
     let recognisers: [TokenRecogniser]
     
     public convenience init() {
-        
-        let whitespace = CharacterSetRecogniser(includeSet: .whitespaces, patternConclusionSet: CharacterSet.whitespaces.inverted, whenMatched: { _ in .whitespace })
-        let newline = CharacterSetRecogniser(includeSet: .newlines, patternConclusionSet: .all, whenMatched: { _ in .newline })
-        let openCurlyBracket = StaticStringRecogniser(stringToMatch: "{", recognising: .openCurlyBracket)
-        let closeCurlyBracket = StaticStringRecogniser(stringToMatch: "}", recognising: .closeCurlyBracket)
-        let startUML = StaticStringRecogniser(stringToMatch: "@startuml", recognising: .startUML)
-        let endUML = StaticStringRecogniser(stringToMatch: "@enduml", recognising: .endUML)
-        let startMultiLineComment = StaticStringRecogniser(stringToMatch: "/'", patternConclusionSet: .all, recognising: .startMultiLineComment)
-        let endMultiLineComment = StaticStringRecogniser(stringToMatch: "'/", patternConclusionSet: .all, recognising: .endMultiLineComment)
-        
-        
-        let classKeyword = StaticStringRecogniser(stringToMatch: "class", recognising: .classIdentifier)
-        
-        let identifierString = CharacterSetRecogniser(includeSet: .plantUMLIdentifierAllowed,
-                                                      patternConclusionSet: CharacterSet.plantUMLIdentifierAllowed.inverted) { matchedString -> Token in
-                                                        
-                                                        return .identifier(matchedString)
-        }
-        
-        let recognisers: [TokenRecogniser] = [whitespace,
-                                              newline,
-                                              openCurlyBracket,
-                                              closeCurlyBracket,
-                                              startUML,
-                                              endUML,
-                                              startMultiLineComment,
-                                              endMultiLineComment,
-                                              classKeyword,
-                                              identifierString]
-        
-        self.init(recognisers: recognisers)
+        self.init(recognisers:  Token.allRecognisers)
     }
     
     init(recognisers: [TokenRecogniser]) {
