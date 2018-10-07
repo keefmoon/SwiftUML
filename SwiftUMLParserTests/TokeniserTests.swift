@@ -31,18 +31,18 @@ class TokeniserTests: XCTestCase {
         XCTAssert(actual == expected)
     }
     
-    func testWlassTextIsTokenisedCorrectly() {
+    func testWclassTextIsTokenisedCorrectly() {
         
-        let expected: [Token] = []
-        let actual: [Token] = self.tokeniser.tokenise("wlass")
+        let expected: [Token] = [.identifier("wclass")]
+        let actual: [Token] = self.tokeniser.tokenise("wclass")
         
         XCTAssert(actual == expected)
     }
     
-    func testClaswTextIsTokenisedCorrectly() {
+    func testClasswTextIsTokenisedCorrectly() {
         
-        let expected: [Token] = []
-        let actual: [Token] = self.tokeniser.tokenise("clasw")
+        let expected: [Token] = [.identifier("classw")]
+        let actual: [Token] = self.tokeniser.tokenise("classw")
         
         XCTAssert(actual == expected)
     }
@@ -90,5 +90,27 @@ class
         
         XCTAssert(actual == expected)
     }
-
+    
+    func testClassExampleWithIdentifierIsTokenisedCorrectly() {
+        
+        let expected: [Token] = [.classIdentifier,
+                                 .whitespace,
+                                 .identifier("MyClass"),
+                                 .whitespace,
+                                 .openCurlyBracket,
+                                 .newline,
+                                 .whitespace,
+                                 .identifier("someIdentifier"),
+                                 .newline,
+                                 .closeCurlyBracket]
+        
+        let text = """
+class MyClass {
+    someIdentifier
+}
+"""
+        let actual: [Token] = self.tokeniser.tokenise(text)
+        
+        XCTAssert(actual == expected)
+    }
 }

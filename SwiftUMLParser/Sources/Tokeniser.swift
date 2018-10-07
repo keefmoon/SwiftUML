@@ -22,7 +22,13 @@ public final class Tokeniser {
         let endMultiLineComment = StaticStringRecogniser(stringToMatch: "'/", patternConclusionSet: .all, recognising: .endMultiLineComment)
         
         
-        let classRecogniser = StaticStringRecogniser(stringToMatch: "class", recognising: .classIdentifier)
+        let classKeyword = StaticStringRecogniser(stringToMatch: "class", recognising: .classIdentifier)
+        
+        let identifierString = CharacterSetRecogniser(includeSet: .plantUMLIdentifierAllowed,
+                                                      patternConclusionSet: CharacterSet.plantUMLIdentifierAllowed.inverted) { matchedString -> Token in
+                                                        
+                                                        return .identifier(matchedString)
+        }
         
         let recognisers: [TokenRecogniser] = [whitespace,
                                               newline,
@@ -32,7 +38,8 @@ public final class Tokeniser {
                                               endUML,
                                               startMultiLineComment,
                                               endMultiLineComment,
-                                              classRecogniser]
+                                              classKeyword,
+                                              identifierString]
         
         self.init(recognisers: recognisers)
     }

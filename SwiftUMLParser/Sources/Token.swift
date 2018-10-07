@@ -19,7 +19,7 @@ public enum Token {
     case endUML
     
     case classIdentifier
-    case label(String)
+    case identifier(String)
 }
 
 extension Token: Equatable {

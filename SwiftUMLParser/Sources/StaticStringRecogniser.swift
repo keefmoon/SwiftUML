@@ -8,42 +8,52 @@
 
 final class StaticStringRecogniser: TokenRecogniser {
     
+    enum RecognitionState {
+        case initial
+        case potential
+        case failed
+        case succeeded
+    }
+    
     let token: Token
     let stringToMatch: String.UnicodeScalarView
     let patternConclusionSet: CharacterSet
-    var matchedIndex: String.Index?
+    var currentIndex: String.Index
+    var currentState: RecognitionState = .initial
     
     init(stringToMatch: String, patternConclusionSet: CharacterSet = .whitespacesAndNewlines, recognising token: Token) {
         self.stringToMatch = stringToMatch.unicodeScalars
         self.patternConclusionSet = patternConclusionSet
         self.token = token
+        self.currentIndex = self.stringToMatch.startIndex
     }
     
     func attemptRecognition(of scalar: UnicodeScalar, withLookAheadScalar lookAheadScalar: UnicodeScalar?) -> Token? {
     
-        let indexToCheck: String.Index = {
-            
-            if let lastMatchedIndex = self.matchedIndex {
-                return self.stringToMatch.index(after: lastMatchedIndex)
-            } else {
-                return self.stringToMatch.startIndex
-            }
-        }()
+        defer {
+            self.currentIndex = self.stringToMatch.index(after: self.currentIndex)
+        }
         
-        guard indexToCheck < self.stringToMatch.endIndex else {
-            self.clear()
+        if self.currentIndex >= self.stringToMatch.endIndex {
+            self.currentState = .failed
+        }
+        
+        guard self.currentState != .failed else {
             return nil
         }
         
-        if scalar == stringToMatch[indexToCheck] {
+        print("self.currentIndex: \(self.currentIndex)")
+        print("endIndex: \(self.stringToMatch.endIndex)")
+        
+        if scalar == self.stringToMatch[self.currentIndex] {
             
-            self.matchedIndex = indexToCheck
+            self.currentState = .potential
             
-            let matchedCompletePattern = indexToCheck == self.stringToMatch.index(before: self.stringToMatch.endIndex)
+            let matchedCompletePattern = self.currentIndex == self.stringToMatch.index(before: self.stringToMatch.endIndex)
             let endOfString = lookAheadScalar == nil
             let patternConclusionOnLookAhead: Bool = {
                 
-                if let lookAhead = lookAheadScalar, patternConclusionSet.contains(lookAhead) {
+                if let lookAhead = lookAheadScalar, self.patternConclusionSet.contains(lookAhead) {
                     return true
                 } else {
                     return false
@@ -52,18 +62,24 @@ final class StaticStringRecogniser: TokenRecogniser {
             
             if matchedCompletePattern && (endOfString || patternConclusionOnLookAhead) {
                 
+                self.currentState = .succeeded
                 self.clear()
                 return self.token
                 
             } else {
                 return nil
             }
+            
+        } else {
+            
+            self.currentState = .failed
         }
-        self.clear()
+        
         return nil
     }
     
     func clear() {
-        self.matchedIndex = nil
+        self.currentIndex = self.stringToMatch.startIndex
+        self.currentState = .initial
     }
 }
