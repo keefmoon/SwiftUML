@@ -19,6 +19,8 @@ public enum Token {
     case closePointyBracket // >
     case openSquareBracket // [
     case closeSquareBracket // ]
+    case openParenthesis // (
+    case closeParenthesis // )
     
     // Quotes
     case simpleQuote // '
@@ -30,6 +32,9 @@ public enum Token {
     case hyphen // -
     case x // x
     case o // o
+    case pipe // |
+    case star // *
+    case fullStop // .
     
     // Keywords
     case startUML // @startuml
@@ -42,6 +47,11 @@ public enum Token {
     case database // database
     case `as` // as
     case `class` // class
+    case title // title
+    case left // left
+    case right // right
+    case up // up
+    case down // down
     
     // Identifiers
     case identifier(String)
@@ -65,15 +75,20 @@ extension Token: CustomStringConvertible {
         case .closePointyBracket: return ">"
         case .openSquareBracket: return "["
         case .closeSquareBracket: return "]"
+        case .openParenthesis: return "("
+        case .closeParenthesis: return ")"
         case .simpleQuote: return "'"
         case .doubleQuote: return "\""
         case .startMultiLineComment: return "/'"
         case .endMultiLineComment: return "'/"
         case .hyphen: return "-"
+        case .star: return "*"
         case .x: return "x"
         case .o: return "o"
+        case .pipe: return "|"
+        case .fullStop: return "."
         case .startUML: return "@startuml"
-        case .endUML: return "@endUML"
+        case .endUML: return "@enduml"
         case .participant: return "participant"
         case .actor: return "actor"
         case .boundary: return "boundary"
@@ -82,6 +97,11 @@ extension Token: CustomStringConvertible {
         case .database: return "database"
         case .as: return "as"
         case .class: return "class"
+        case .title: return "title"
+        case .left: return "left"
+        case .right: return "right"
+        case .up: return "up"
+        case .down: return "down"
         case .identifier(let identifier): return identifier
         }
     }
@@ -112,11 +132,20 @@ extension Token {
              .closePointyBracket,
              .openSquareBracket,
              .closeSquareBracket,
+             .openParenthesis,
+             .closeParenthesis,
              .simpleQuote,
              .doubleQuote,
              .hyphen,
              .x,
-             .o:
+             .o,
+             .pipe,
+             .star,
+             .fullStop,
+             .left,
+             .right,
+             .up,
+             .down:
             
             return StaticStringRecogniser(stringToMatch: self.description, patternConclusionSet: .all, recognising: self)
             
@@ -130,7 +159,8 @@ extension Token {
              .entity,
              .database,
              .as,
-             .class:
+             .class,
+             .title:
             
             return StaticStringRecogniser(stringToMatch: self.description, recognising: self)
         }
@@ -146,6 +176,8 @@ extension Token {
                 Token.closePointyBracket.recogniser,
                 Token.openSquareBracket.recogniser,
                 Token.closeSquareBracket.recogniser,
+                Token.openParenthesis.recogniser,
+                Token.closeParenthesis.recogniser,
                 Token.simpleQuote.recogniser,
                 Token.doubleQuote.recogniser,
                 Token.startMultiLineComment.recogniser,
@@ -153,6 +185,9 @@ extension Token {
                 Token.hyphen.recogniser,
                 Token.x.recogniser,
                 Token.o.recogniser,
+                Token.pipe.recogniser,
+                Token.star.recogniser,
+                Token.fullStop.recogniser,
                 Token.startUML.recogniser,
                 Token.endUML.recogniser,
                 Token.participant.recogniser,
@@ -163,6 +198,11 @@ extension Token {
                 Token.database.recogniser,
                 Token.as.recogniser,
                 Token.class.recogniser,
+                Token.title.recogniser,
+                Token.left.recogniser,
+                Token.right.recogniser,
+                Token.up.recogniser,
+                Token.down.recogniser,
                 Token.identifier("anything").recogniser]
     }
 }

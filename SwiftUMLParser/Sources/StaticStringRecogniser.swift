@@ -29,10 +29,10 @@ final class StaticStringRecogniser: TokenRecogniser {
     }
     
     func attemptRecognition(of scalar: UnicodeScalar, withLookAheadScalar lookAheadScalar: UnicodeScalar?) -> Token? {
-    
-        defer {
-            self.currentIndex = self.stringToMatch.index(after: self.currentIndex)
-        }
+        
+        print("Checking: \(scalar) | Look ahead: \(String(describing: lookAheadScalar))")
+        print("self.currentIndex: \(self.currentIndex)")
+        print("endIndex: \(self.stringToMatch.endIndex)")
         
         if self.currentIndex >= self.stringToMatch.endIndex {
             self.currentState = .failed
@@ -41,9 +41,6 @@ final class StaticStringRecogniser: TokenRecogniser {
         guard self.currentState != .failed else {
             return nil
         }
-        
-        print("self.currentIndex: \(self.currentIndex)")
-        print("endIndex: \(self.stringToMatch.endIndex)")
         
         if scalar == self.stringToMatch[self.currentIndex] {
             
@@ -67,6 +64,9 @@ final class StaticStringRecogniser: TokenRecogniser {
                 return self.token
                 
             } else {
+                
+                // partial match, so increment the index
+                self.currentIndex = self.stringToMatch.index(after: self.currentIndex)
                 return nil
             }
             

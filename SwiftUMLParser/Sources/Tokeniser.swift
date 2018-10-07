@@ -46,15 +46,14 @@ extension String.UnicodeScalarView {
             
             for recogniser in recognisers {
                 
-                guard nextToken == nil else {
-                    recogniser.clear()
-                    continue
-                }
-                
                 if let token = recogniser.attemptRecognition(of: firstScalar, withLookAheadScalar: lookAheadScalar) {
                     
                     self = String.UnicodeScalarView(self.suffix(from: self.index(after: index)))
                     nextToken = token
+                    
+                    // Reset all the recognisers
+                    recognisers.forEach { $0.clear() }
+                    break
                 }
             }
             
