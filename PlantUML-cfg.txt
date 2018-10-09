@@ -1,0 +1,2 @@
+Whitespace -> " "
+OptionalWhitespace -> ɛ | Whitespace
