@@ -19,6 +19,12 @@
 		2F046C902166E8A30049F559 /* SwiftUMLParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F046C6B2166E82D0049F559 /* SwiftUMLParser.framework */; };
 		2F046C942166ED550049F559 /* AllRecogniser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F046C932166ED550049F559 /* AllRecogniser.swift */; };
 		2F046C97216964200049F559 /* CharacterSet+All.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F046C96216964200049F559 /* CharacterSet+All.swift */; };
+		2F046C9B216C33620049F559 /* Diagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F046C9A216C33620049F559 /* Diagram.swift */; };
+		2F046C9D216C340A0049F559 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F046C9C216C340A0049F559 /* Node.swift */; };
+		2F046C9F216C34AA0049F559 /* CommonModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F046C9E216C34AA0049F559 /* CommonModels.swift */; };
+		2F046CA1216C34E80049F559 /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F046CA0216C34E80049F559 /* Class.swift */; };
+		2F046CA3216C35110049F559 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F046CA2216C35110049F559 /* Note.swift */; };
+		2F046CA5216C353D0049F559 /* Relation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F046CA4216C353D0049F559 /* Relation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +72,12 @@
 		2F046C892166E88F0049F559 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		2F046C932166ED550049F559 /* AllRecogniser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRecogniser.swift; sourceTree = "<group>"; };
 		2F046C96216964200049F559 /* CharacterSet+All.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+All.swift"; sourceTree = "<group>"; };
+		2F046C9A216C33620049F559 /* Diagram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diagram.swift; sourceTree = "<group>"; };
+		2F046C9C216C340A0049F559 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		2F046C9E216C34AA0049F559 /* CommonModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonModels.swift; sourceTree = "<group>"; };
+		2F046CA0216C34E80049F559 /* Class.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Class.swift; sourceTree = "<group>"; };
+		2F046CA2216C35110049F559 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		2F046CA4216C353D0049F559 /* Relation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Relation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,13 +158,8 @@
 		2F046C842166E88F0049F559 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				2F046C852166E88F0049F559 /* CharacterSetRecogniser.swift */,
-				2F046C862166E88F0049F559 /* TokenRecogniser.swift */,
-				2F046C872166E88F0049F559 /* Tokeniser.swift */,
-				2F046C882166E88F0049F559 /* StaticStringRecogniser.swift */,
-				2F046C892166E88F0049F559 /* Token.swift */,
-				2F046C932166ED550049F559 /* AllRecogniser.swift */,
-				2F046C96216964200049F559 /* CharacterSet+All.swift */,
+				2F046C99216C334B0049F559 /* Tokenising */,
+				2F046C98216C333F0049F559 /* Model */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -162,6 +169,33 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2F046C98216C333F0049F559 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2F046C9A216C33620049F559 /* Diagram.swift */,
+				2F046C9C216C340A0049F559 /* Node.swift */,
+				2F046C9E216C34AA0049F559 /* CommonModels.swift */,
+				2F046CA0216C34E80049F559 /* Class.swift */,
+				2F046CA2216C35110049F559 /* Note.swift */,
+				2F046CA4216C353D0049F559 /* Relation.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2F046C99216C334B0049F559 /* Tokenising */ = {
+			isa = PBXGroup;
+			children = (
+				2F046C852166E88F0049F559 /* CharacterSetRecogniser.swift */,
+				2F046C862166E88F0049F559 /* TokenRecogniser.swift */,
+				2F046C872166E88F0049F559 /* Tokeniser.swift */,
+				2F046C882166E88F0049F559 /* StaticStringRecogniser.swift */,
+				2F046C892166E88F0049F559 /* Token.swift */,
+				2F046C932166ED550049F559 /* AllRecogniser.swift */,
+				2F046C96216964200049F559 /* CharacterSet+All.swift */,
+			);
+			path = Tokenising;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,13 +336,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F046C9F216C34AA0049F559 /* CommonModels.swift in Sources */,
+				2F046CA1216C34E80049F559 /* Class.swift in Sources */,
 				2F046C942166ED550049F559 /* AllRecogniser.swift in Sources */,
 				2F046C8C2166E88F0049F559 /* Tokeniser.swift in Sources */,
 				2F046C8E2166E88F0049F559 /* Token.swift in Sources */,
+				2F046C9D216C340A0049F559 /* Node.swift in Sources */,
 				2F046C8B2166E88F0049F559 /* TokenRecogniser.swift in Sources */,
 				2F046C8A2166E88F0049F559 /* CharacterSetRecogniser.swift in Sources */,
+				2F046C9B216C33620049F559 /* Diagram.swift in Sources */,
+				2F046CA5216C353D0049F559 /* Relation.swift in Sources */,
 				2F046C97216964200049F559 /* CharacterSet+All.swift in Sources */,
 				2F046C8D2166E88F0049F559 /* StaticStringRecogniser.swift in Sources */,
+				2F046CA3216C35110049F559 /* Note.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
